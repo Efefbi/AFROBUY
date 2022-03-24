@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 //import {useParams } from 'react-router-dom';
 import Rating from "../components/Rating";
 import Product from '../components/Products';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { detailsProduct } from '../actions/productActions';
 //import axios from 'axios';
 
 
-export default function ProductScreen(){
-    const product = data.products.find(x => x._id === probs.match.params);
+export default function ProductScreen(props){
+    const dispatch = useDispatch();
+    const productId = props.match.params.id;
+    const [qty, setQty] = useState(1);
+    const productDetails = useSelector(state => state.productDetails);
+    const {loading,error,product} = productDetails;
+   {/*const product = data.products.find(x => x._id === probs.match.params);*/}
 {/*
 const [loading,setLoading] = useState(true)
 const [product, setProduct] = useState({})
@@ -23,12 +32,25 @@ const [error, setError] = useState(null)
       }
       fetchProduct()
   })*/}
-  return !product ?
+   {/*!product ?
 (<div>
     <h1>Page is Loading!</h1>
 </div>)
-  : (
-  <div>
+: */}
+  useEffect(()=>{
+      dispatch(detailsProduct(productId));
+  },[dispatch,productId]);
+  const addToCartHandler = () => {
+      props.history.push(`/cart/${productId}?qty=${qty}`);
+  }
+  return (
+    <div>
+    { 
+     loading ? (<LoadingBox></LoadingBox>)
+     : error ? (<MessageBox variant="danger">{error}</MessageBox>)
+     :
+  (
+     <div>
       <Link to="/"> Bact to result </Link>
     <div className= 'row top'>
         <div className = "col-2">
@@ -77,11 +99,35 @@ const [error, setError] = useState(null)
                                   )}
                               </div>
                         </div>
-
-                    </li>
-                    <li>
-                        <button className="primary block">Add to cart</button>
-                    </li>
+                   </li>
+                   {
+                       product.countInStock > 0 && (
+                    <>
+                      <li>
+                          <div className="row">
+                              <div>Qty</div>
+                              <div>
+                                  <select value= {qty} onChange={e => setQty(e.target.value)}>
+                                      {
+                                          [...Array(product.countInStock).keys()].map(x => {
+                                              <option key={x + 1} value={x + 1}>
+                                                  {x + 1}
+                                              </option>
+                                          })
+                                      }
+                                  </select>
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                        <button 
+                          onClick={addToCartHandler}
+                          className="primary block">Add to cart</button>
+                      </li>
+                    </>   
+                       )
+                   }
+                
 
                 </ul>
             </div>
@@ -90,5 +136,8 @@ const [error, setError] = useState(null)
 
     </div>
  </div>
-);
+     )
+}
+</div>
+  );
 }

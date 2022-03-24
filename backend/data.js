@@ -1,7 +1,22 @@
+import bcrypt from 'bcryptjs';
 const data = {
+    users:[
+      {
+        name: 'Efe',
+        email:'efefbi@yahoo.com',
+        password: bcrypt.hashSync('gabone911', 8),
+        isAdmin: true,
+    },
+    {
+      name: 'John',
+      email:'johnfbi@yahoo.com',
+      password: bcrypt.hashSync('gabone911', 8),
+      isAdmin: false,
+  }
+  ],
     products:[
     {
-    _id:'1',
+    //_id:'1',
     name:'Lion frame',
     category: 'Frame',
     image: './images/p1.jpg',
@@ -13,7 +28,7 @@ const data = {
     description: 'High quality product',
    },
    {
-    _id:'2',
+    //_id:'2',
     name:'Nike T-Shirt',
     category: 'Shirt',
     image: './images/p2.jpg',
@@ -25,7 +40,7 @@ const data = {
     description: 'High quality product',
    },
    {
-    _id:'3',
+    //_id:'3',
     name:'Nike Trainers',
     category: 'Footwear',
     image: './images/p3.jpg',
@@ -37,7 +52,7 @@ const data = {
     description: 'High quality product',
    },
    {
-    _id:'4',
+    //_id:'4',
     name:'addidas shirt',
     category: 'Shirt',
     image: './images/p4.jpg',
@@ -49,7 +64,7 @@ const data = {
     description: 'High quality product',
    },
    {
-    _id:'5',
+    //_id:'5',
     name:'Rolex Watch',
     category: 'Watches',
     image: './images/p5.jpg',
@@ -61,7 +76,7 @@ const data = {
     description: 'High quality product',
    },
    {
-    _id:'6',
+    //_id:'6',
     name:'Channel Hat',
     category: 'Hat',
     image: './images/p6.jpg',
