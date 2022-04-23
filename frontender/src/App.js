@@ -4,10 +4,12 @@ import { BrowserRouter, Link, Route, Routes} from 'react-router-dom';
 import { signout } from './actions/userActions';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import OrderScreen from './screens/OrderScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import ProductScreen from './screens/ProductScreen';
+import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import { ShippingAddressScreen } from './screens/shippingAddressScreen';
 import SignininScreen from './screens/SigninScreen';
@@ -41,9 +43,17 @@ function App() {
                 {userInfo.name}<i className="fa fa-caret-down"></i>{' '}
               </Link>
               <ul className="drowpdown-content">
-                <link to="#signout" onClick={signoutHandler}>
-                  Sign Out
-                </link>
+               <li>
+                  <Link to="/profile">User Profile</Link>
+                </li>
+                <li>
+                  <Link to="/orderhistory">Order History</Link>
+                </li>
+                <li>
+                  <link to="#signout" onClick={signoutHandler}>
+                    Sign Out
+                  </link>
+                </li>
               </ul>
              </div>
             ) : (
@@ -63,6 +73,8 @@ function App() {
          <Route path="/payment" component={PaymentMethodScreen}></Route>
          <Route path="/placeorder" component={PlaceOrderScreen}></Route>
          <Route path="/order/:id" component={OrderScreen}></Route>
+         <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
+         <Route path="/profile" component= {ProfileScreen}></Route>
          <Route path="/" component={HomeScreen} exact /> 
        </Routes>
       {/*Code moved to HomeScreen.js
