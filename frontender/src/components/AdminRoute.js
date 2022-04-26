@@ -2,11 +2,11 @@
 import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
  
-export default function PrivateRoute({component: Component, ...rest}) {
+export default function AdminRoute({component: Component, ...rest}) {
     const userSignin = useSelector(state => state.userSignin);
     const {userInfo} = userSignin; 
     return (
-        <Route {...rest} render={(props) => userInfo? (<Component {...props}></Component>):
+        <Route {...rest} render={(props) => userInfo && userInfo.isAdmin ? (<Component {...props}></Component>):
     (<Redirect to="/signin"/>
     )
 }
@@ -17,10 +17,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ children }) => {
+const AdminRoute = ({ children }) => {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  return userInfo ? children : <Navigate to="/signin" />;
+  return userInfo && userInfo.isAdmin ? children : <Navigate to="/signin" />;
 };
 
-export default PrivateRoute;
+export default AdminRoute;
