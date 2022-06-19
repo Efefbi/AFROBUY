@@ -19,7 +19,7 @@ const data = {
     //_id:'1',
     name:'Lion frame',
     category: 'Frame',
-    image: './images/p1.jpg',
+    image: '/images/p1.jpg',
     price: 120,
     countInStock: 10,
     brand: 'Vigo',
@@ -96,8 +96,8 @@ import bcrypt from 'bcryptjs';
 const data = {
   users: [
     {
-      name: 'Basir',
-      email: 'admin@example.com',
+      name: 'Efefbi',
+      email: 'efefbi@yahoo.com',
       password: bcrypt.hashSync('1234', 8),
       isAdmin: true,
       isSeller: true,
@@ -142,7 +142,7 @@ const data = {
     {
       name: 'Lacoste Free Shirt',
       category: 'Shirts',
-      image: '/images/p3.jpg',
+      image: './images/p3.jpg',
       price: 220,
       countInStock: 0,
       brand: 'Lacoste',

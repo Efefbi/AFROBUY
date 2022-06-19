@@ -37,6 +37,8 @@ const productRouter = express.Router();
 productRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
+     const product = await Product.find({});
+       res.send(product);
     const pageSize = 3;
     const page = Number(req.query.pageNumber) || 1;
     const name = req.query.name || '';
@@ -98,14 +100,14 @@ productRouter.get(
 productRouter.get(
   '/seed',
   expressAsyncHandler(async (req, res) => {
-    // await Product.remove({});
+    //await Product.remove({});
     const seller = await User.findOne({ isSeller: true });
     if (seller) {
       const products = data.products.map((product) => ({
         ...product,
         seller: seller._id,
       }));
-      const createdProducts = await Product.insertMany(products);
+      const createdProducts = await Product.insertMany(data.products);
       res.send({ createdProducts });
     } else {
       res

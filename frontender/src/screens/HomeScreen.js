@@ -46,7 +46,7 @@ export default function HomeScreen() {
             ))}
           </Carousel>
         </>
-      )}
+      )};
       <h2>Featured Products</h2>
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -58,10 +58,11 @@ export default function HomeScreen() {
           <div className="row center">
             {products.map((product) => (
               <Product key={product._id} product={product}></Product>
-            ))}
+            )
+            )}
           </div>
         </>
-      )}
+            )}
     </div>
   );
 }

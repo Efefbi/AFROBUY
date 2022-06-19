@@ -47,6 +47,7 @@ app.listen(port , () => {
 });*/
 import http from 'http';
 import { Server } from 'socket.io';
+import data from './data.js';
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -62,7 +63,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazona');
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/afrobuy',/*{
+  useNewUrlParser:true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+}*/);
 app.use('/api/uploads', uploadRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
@@ -83,7 +88,7 @@ app.get('*', (req, res) =>
 //   res.send('Server is ready');
 // });
 
-app.use((err, req, res) => {
+app.use((err, req, res,next) => {
   res.status(500).send({ message: err.message });
 });
 
